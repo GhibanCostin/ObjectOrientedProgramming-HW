@@ -1,0 +1,54 @@
+Ghiban Costin
+325CC
+
+                Voucher Management Service
+                        - Tema POO -
+    
+->Dificultate: 5/10, medie
+  Dificultatea a provenit din ambiguitatea unor pasaje din enunt si din
+faptul ca scrierea definitiei unei clase depindea inerent de scrierea 
+definitiilor altor clase. Implementarea interfetei grafice a fost mai 
+degraba costisitoare ca timp, decat dificila.
+
+->Timpul alocat rezolvarii: ~4 ore pe zi, ~6 zile
+
+->Implementare:
+  In afara de clasele si metodele descrise in enunt, pe care le-am implementat
+ca atare, fara nimic special adaugat, am realizat getter-i si setter-i pentru
+anumite atribute ale claselor care au fost necesare in alte contexte decat cel
+local claselor respective (nu toate atributele dispun de getters&setters), 
+exceptie facand parola utilizatorului, careia, din motive de securitate, i-am
+asociat o metoda testPassword(String) ce returneaza o valoare de adevar (astfel
+se verifica validitatea parolei fara a o face publica). Pe langa acestea am 
+implementat cateva metode auxiliare, precum getVoucher(Integer), pentru a cauta
+un voucher intr-o campanie dupa id-ul sau si nu dupa cod (cum era in enunt),
+readVMSData(String, String), ce primeste doua cai catre fisierele de intrare ce
+detin informatiile despre campanii si utilizatori si care realizeaza doua citiri
+din fisiere si creeaza obiectele necesare folosirii aplicatiei, in speta campaniile
+de inceput si utilizatorii. Data aplicatiei este fie cea citita din fisierul 
+campaigns.txt, fie cea furnizata de sistem la rularea prin interfata grafica.
+Diferitele erori sau exceptii aruncate la citirea acestor fisiere se traduce in
+interfata cu utilizatorul prin culori si mesaje sugestive si nu intrerup rularea
+aplicatiei. Metoda readExecuteEventsFromFile(String) nu este folosita. Ea este 
+lasata, la fel ca liniile de cod comentate din clasa Test, ca backup in cazul
+nefunctionarii interfetei grafice, citind din fisierul events.txt o serie de
+comenzi, tratate apoi intr-un bloc switch.
+  Interfata este simplista, demonstrand functionalitatiile aplicatiei, iar nu
+un exercitiu de stilistica.
+  Clasa VMS foloseste design pattern-ul Singleton, avand un atribut static
+instantiat o singura data si returnat de metoda getInstance(), folosind un
+constructor privat. Clasele Campaign si User sunt bazate pe design pattern-ul
+Observer, Campaign fiind o subclasa a Observable si avand metode de adaugare,
+stergere si notificare (prin intermediul Notification) a observatorilor, adica
+a utilizatoriilor inscrisi la campania respectiva. User implementeaza interfata
+Observer si suprascrie metoda update(Observable, Object), care face apel la
+metoda supraincarcata update(Notification), ce preia o notificare generala, 
+adresata tuturor observatorilor, si ii atribuie lista sa de coduri de voucher-e,
+adaugand apoi aceata notificare personalizata listei sale de notificari (ale
+utilizatorului).
+
+->Observatii:
+  Raritatea comentariilor din cod este datorata convingerii ca numele metodelor
+si utilizarea lor impreuna cu alte metode sunt suficient de descriptive si usor
+de inteles in context.
+    
